@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Movie Reviews</title>
+    <style>
+        /* Navbar simple y elegante */
+        .navbar {
+            display: flex;
+            justify-content: flex-end; /* alinea a la derecha */
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+    
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{% url 'about' %}">About</a>
+    </div>
+
+    <!-- Contenido principal -->
+    <h1>Welcome to the Movie Reviews Home Page!, {{ name }}</h1>
+    <p>This is a placeholder for the home page content.</p>
+</body>
+</html>
+{% load static %}
