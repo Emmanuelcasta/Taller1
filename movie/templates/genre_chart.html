@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Gráfica: Cantidad de películas por género</h2>
+    <img src="data:image/png;base64,{{ chart }}" alt="Gráfica de películas por género" class="img-fluid"/>
+</div>
+{% endblock %}

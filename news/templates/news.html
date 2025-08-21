@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    {% for news in newss %}
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ news.headline }}</h5>
+                    <p class="card-text">{{ news.body }}</p>
+                    <p class="card-text"><small class="text-muted">{{ news.date }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="container mt-5">
+    <h2>Noticias</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Género</th>
+                <th>Año</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies_data %}
+                <tr>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.genre }}</td>
+                    <td>{{ movie.year }}</td>
+                    <td>{{ movie.plot }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+<div class="container mt-5">
+    <h2>Películas del JSON</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Género</th>
+                <th>Año</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for movie in movies_data %}
+                <tr>
+                    <td>{{ movie.title }}</td>
+                    <td>{{ movie.genre }}</td>
+                    <td>{{ movie.year }}</td>
+                    <td>{{ movie.plot }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
