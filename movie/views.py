@@ -50,27 +50,45 @@ def statistics_view(request):
     plt.xlabel('Year') 
     plt.ylabel('Number of movies') 
     plt.xticks(bar_positions, movie_counts_by_year.keys(), rotation=90) 
-    # Ajustar el espaciado entre las barras 
-    plt.subplots_adjust(bottom=0.3) 
-    # Guardar la gráfica en un objeto BytesIO 
+    plt.subplots_adjust(bottom=0.3)
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_year_png = buffer.getvalue()
+    buffer.close()
+    graphic_year = base64.b64encode(image_year_png).decode('utf-8')
+    plt.close()
+
+    # Gráfico por género
+    genre_counts = {}
+    for movie in Movie.objects.all():
+        if movie.genre:
+            genre = movie.genre.split(',')[0].strip()
+            genre_counts[genre] = genre_counts.get(genre, 0) + 1
+
+    genres = list(genre_counts.keys())
+    counts = list(genre_counts.values())
+    plt.figure(figsize=(8,5))
+    plt.bar(genres, counts, color='skyblue')
+    plt.xlabel('Género')
+    plt.ylabel('Cantidad de películas')
+    plt.title('Cantidad de películas por género (primer género)')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    image_genre_png = buf.getvalue()
+    buf.close()
+    graphic_genre = base64.b64encode(image_genre_png).decode('utf-8')
+    plt.close()
+
+    return render(request, 'statistics.html', {'graphic_year': graphic_year, 'graphic_genre': graphic_genre})
 
 # Vista para la suscripción
 def signup(request):
     email = request.GET.get('email', '')
     return render(request, 'signup.html', {'email': email})
-    buffer = io.BytesIO() 
-    plt.savefig(buffer, format='png') 
-    buffer.seek(0) 
-    plt.close() 
-     
-    # Convertir la gráfica a base64 
-    image_png = buffer.getvalue() 
-    buffer.close() 
-    graphic = base64.b64encode(image_png) 
-    graphic = graphic.decode('utf-8') 
- 
-    # Renderizar la plantilla statistics.html con la gráfica 
-    return render(request, 'statistics.html', {'graphic': graphic})
 import matplotlib
 import io
 import urllib, base64
